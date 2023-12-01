@@ -1,10 +1,14 @@
+package modelo;
 public class Automovil extends Vehiculo {
 	private int potencia;
 	private int numeroDePuertas;
-	private int tama�oMotor;
+	private int tamañoMotor;
 
-	public Automovil(Object int_potencia, Object int_numeroDePuertas, Object int_tama�oMotor) {
-		throw new UnsupportedOperationException();
+	public Automovil( int potencia,  int numeroDePuertas,  int tamañoMotor) {
+		super(marca, modelo, año, stock, precio, peso, patente, tipo);
+		this.potencia = potencia;
+		this.numeroDePuertas = numeroDePuertas;
+		this.tamañoMotor = tamañoMotor;
 	}
 
 	public int getPotencia() {
@@ -23,15 +27,16 @@ public class Automovil extends Vehiculo {
 		this.numeroDePuertas = numeroDePuertas;
 	}
 
-	public int getTama�oMotor() {
-		return this.tama�oMotor;
+	public int getTamañoMotor() {
+		return this.tamañoMotor;
 	}
 
-	public void setTama�oMotor(int tama�oMotor) {
-		this.tama�oMotor = tama�oMotor;
+	public void setTamañoMotor(int tamañoMotor) {
+		this.tamañoMotor = tamañoMotor;
+	}
+//Metodo abstracto para calcular velocidad (maxima: potencia/peso)*10
+	public Double calcularVelocidadMaxima(){
+		return (potencia/peso)*10;
 	}
 
-	public Double calcularVelocidadMaxima() {
-		throw new UnsupportedOperationException();
-	}
 }

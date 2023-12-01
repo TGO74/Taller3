@@ -1,9 +1,20 @@
+package modelo;
+import java.util.ArrayList;
+import java.util.Date;
 public class Compra {
 	private ArrayList<Vehiculo> listaDeVehiculosCompra;
 	private Cliente cliente;
 	private String informacionEnvio;
 	private Date fechaCompra;
 	private String metodoPago;
+
+	public Compra(String direccion, Cliente cliente, ArrayList<Vehiculo> listaDeVehiculosCompra, String informacionEnvio, Date fechaCompra, String metodoPago) {
+		this.listaDeVehiculosCompra = listaDeVehiculosCompra;
+		this.cliente = cliente;
+		this.informacionEnvio = informacionEnvio;
+		this.fechaCompra = fechaCompra;
+		this.metodoPago = metodoPago;
+	}
 
 	public ArrayList<Vehiculo> getListaDeVehiculosCompra() {
 		throw new UnsupportedOperationException();

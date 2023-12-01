@@ -1,77 +1,122 @@
+package modelo;
+
+import java.util.ArrayList;
+import java.util.Date;
+import dato.GestorArchivosVehiculos;
+import dato.GestorArchivosCompras;
+import modelo.TiendaDeVehiculos;
+
 public class Cliente {
 	private String nombreCliente;
-	private String direcci�n;
+	private String direccion;
 	private String correo;
-	private Cuenta cuenta;
 	private ArrayList<Vehiculo> carritoDeCompra;
-	private Compra__ compras = new Compra[0];
-	private Vehiculo__ vehiculos = new Vehiculo[0];
+	private ArrayList<Compra> compras;
+	private ArrayList<Vehiculo> vehiculosComprados;
 
-	public Cliente(Object string_nombrecliente, Object string_direccion, Object string_correo, Object cuenta_cuenta) {
-		throw new UnsupportedOperationException();
+	public Cliente(String nombrecliente, String direccion, String correo, ArrayList<Vehiculo> carritoDeCompra, ArrayList<Compra> compras, ArrayList<Vehiculo> vehiculosComprados) {
+		this.nombreCliente = nombrecliente;
+		this.direccion = direccion;
+		this.correo = correo;
+		this.carritoDeCompra = carritoDeCompra;
+		this.compras = compras;
+		this.vehiculosComprados = vehiculosComprados;
 	}
 
 	public String getNombreCliente() {
-		return this.nombreCliente;
+		return nombreCliente;
 	}
 
 	public void setNombreCliente(String nombreCliente) {
 		this.nombreCliente = nombreCliente;
 	}
 
-	public String getDirecci�n() {
-		return this.direcci�n;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setDirecci�n(String direcci�n) {
-		this.direcci�n = direcci�n;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getCorreo() {
-		return this.correo;
+		return correo;
 	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
 
-	public Cuenta getCuenta() {
-		return this.cuenta;
+	public Vehiculo buscarVehiculoPorMarca(String marca) {
+		for (Vehiculo vehiculo : carritoDeCompra) {
+			if (vehiculo.getMarca().equalsIgnoreCase(marca)) {
+				return vehiculo;
+			}
+		}
+		return null; // Retorna null si no se encuentra ningún vehículo con la marca especificada.
 	}
 
-	public void setCuenta(Cuenta cuenta) {
-		this.cuenta = cuenta;
+	public Vehiculo buscarVehiculoPorModelo(String modelo) {
+		for (Vehiculo vehiculo : carritoDeCompra) {
+			if (vehiculo.getModelo().equalsIgnoreCase(modelo)) {
+				return vehiculo;
+			}
+		}
+		return null; // Retorna null si no se encuentra ningún vehículo con el modelo especificado.
 	}
 
-	public void registrarCuenta() {
-		throw new UnsupportedOperationException();
-	}
-
-	public Vehiculo buscarVehiculoPorMarca(Object string_marca) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Vehiculo_vehiculo buscarVehiculoPorModelo(Object string_modelo) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Vehiculo_vehiculo buscarVehiculoPorTipo(Object string_tipo) {
-		throw new UnsupportedOperationException();
+	public Vehiculo buscarVehiculoPorTipo(String tipo) {
+		for (Vehiculo vehiculo : carritoDeCompra) {
+			if (vehiculo.getTipo().equalsIgnoreCase(tipo)) {
+				return vehiculo;
+			}
+		}
+		return null; // Retorna null si no se encuentra ningún vehículo con el tipo especificado.
 	}
 
 	public ArrayList<Vehiculo> getCarritoDeCompra() {
-		throw new UnsupportedOperationException();
+		return carritoDeCompra;
 	}
 
 	public void setCarritoDeCompra(ArrayList<Vehiculo> carritoDeCompra) {
-		throw new UnsupportedOperationException();
+		this.carritoDeCompra = carritoDeCompra;
 	}
 
-	public void agregarVehiculoCarritoDeCompra() {
-		throw new UnsupportedOperationException();
+	public void agregarVehiculoCarritoDeCompra(Vehiculo vehiculo) {
+		// Verifica si el vehículo ya está en el carrito
+		if (!carritoDeCompra.contains(vehiculo)) {
+			carritoDeCompra.add(vehiculo);
+			System.out.println("Vehículo agregado al carrito de compra.");
+		} else {
+			System.out.println("El vehículo ya está en el carrito de compra.");
+		}
 	}
 
-	public String realizarCompra(Object string_direccion, Object string_nombre_cliente) {
-		throw new UnsupportedOperationException();
+	public String realizarCompra(String direccion, String nombreCliente) {
+		if (carritoDeCompra.isEmpty()) {
+			return "No hay vehículos en el carrito de compra. Agregue vehículos antes de realizar la compra.";
+		} else {
+			// Crear una nueva compra
+			Compra nuevaCompra = new Compra(direccion, nombreCliente, carritoDeCompra, new Date());
+
+			// Agregar la nueva compra a la lista de compras realizadas
+			compras.add(nuevaCompra);
+
+			// Agregar los vehículos de la compra a la lista de vehículos comprados
+			vehiculosComprados.addAll(carritoDeCompra);
+
+			//Eliminar de la lista de vehiulos del catalogo los vehiculos comprados y liminar del archivo de texto
+			for(Vehiculo v: carritoDeCompra){
+				TiendaDeVehiculos.getVehiculos().remove(v);
+				GestorArchivosVehiculos.eliminarVehiculo("vehiculos.txt", v.getPatente());
+			}
+			// Limpiar el carrito de compra después de la compra
+			carritoDeCompra.clear();
+
+			//Agrega registro al archivo de texto de compras
+			GestorArchivosCompras.guardarDatos(nuevaCompra, "compras.txt");
+
+			return "Compra realizada con éxito. ¡Gracias por su compra!";
+		}
 	}
 }

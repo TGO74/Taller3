@@ -1,12 +1,15 @@
+package modelo;
 public class Motocicleta extends Vehiculo {
 	private int potenciaMotor;
 	private String tipoDeMotor;
 	private String suspension;
 
-	public Motocicleta(Object int_potenciaMotor, Object string_tipoDeMotor, Object string_suspension) {
-		throw new UnsupportedOperationException();
+	public Motocicleta(int potenciaMotor, String tipoDeMotor, String suspension) {
+		super(marca, modelo, año, stock, precio, peso, patente, tipo);
+		this.potenciaMotor = potenciaMotor;
+		this.tipoDeMotor = tipoDeMotor;
+		this.suspension = suspension;
 	}
-
 	public int getPotenciaMotor() {
 		return this.potenciaMotor;
 	}
@@ -31,7 +34,16 @@ public class Motocicleta extends Vehiculo {
 		this.suspension = suspension;
 	}
 
-	public Double calcularVelocidadMaxima() {
-		throw new UnsupportedOperationException();
+//Metodo abstracto para calcular velocidad (maxima= (potencia*2)/peso)
+	public Double calcularVelocidadMaxima(){
+		return (potenciaMotor*2)/peso;
 	}
+
+	//toString
+	public String toString(){
+		return "Marca: " + marca + "\nModelo: " + modelo + "\nAño: " + año + "\nStock: " + stock + "\nPrecio: " + precio + "\nPeso: " + peso + "\nPotencia Motor: " + potenciaMotor + "\nTipo de Motor: " + tipoDeMotor + "\nSuspension: " + suspension;
+	}
+
+
+
 }

@@ -2,7 +2,7 @@
 
 # Sistema de Gestión de Venta de Vehículos
 
-Este sistema de venta de vehículos permite a los clientes comprar automóviles y motocicletas. A continuación, se describen las principales características y la estructura del proyecto.
+Este sistema de venta de vehículos permite a los clientes comprar automóviles y motocicletaspotpot. A continuación, se describen las principales características y la estructura del proyecto.
 
 #### Funcionalidades del Sistema:
 
@@ -27,11 +27,23 @@ Este sistema de venta de vehículos permite a los clientes comprar automóviles 
 
 #### Clases del Modelo:
 
-- **Cliente:**
-    - Atributos: nombre, dirección, información de cuenta, etc.
+- **TiendaDeVehiculos:**
+    - Atributos: lista de vehículos, lista de clientes, lista de compras.
+    - Métodos:
+        - `buscarVehiculo(marca, modelo, tipo): Vehiculo`
+        - `agregarVehiculo(vehiculo: Vehiculo): void`
+        - `agregarCliente(cliente: Cliente): void`
+        - `agregarCompra(compra: Compra): void`
+        - `realizarCompra(cliente: Cliente, vehiculos: List<Vehiculo>): void`
 
+- **Cliente:**
+    - Atributos: nombre, email, rut, contraseña.
+    - Métodos:
+        
 - **Vehículo:**
     - Atributos: marca, modelo, año, peso, precio, stock.
+    - Métodos:
+        - `calcularVelocidadMaxima(): double`
 
 - **Automóvil (hereda de Vehículo):**
     - Atributos adicionales: potencia (HP), número de puertas, tamaño del motor.
@@ -51,6 +63,12 @@ Este sistema de venta de vehículos permite a los clientes comprar automóviles 
         - `leerArchivoVehiculos(nombreArchivo): void`
         - `cargarDatos(): void`
         - `almacenarDatos(): void`
+    
+    **GestorDatosComprar:**
+    - Métodos:
+        - `leerArchivoVehiculos(nombreArchivo): void`
+        - `cargarDatos(): void`
+        - `almacenarDatos(): void`
 
 #### Estructura del Proyecto:
 
@@ -61,4 +79,3 @@ Este sistema de venta de vehículos permite a los clientes comprar automóviles 
 
 ---
 
-Este análisis proporciona una visión general del sistema y su estructura. A continuación, se debe proceder a implementar las clases, métodos y funcionalidades descritas en este README para crear el sistema de gestión de venta de vehículos.
